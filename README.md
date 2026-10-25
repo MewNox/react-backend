@@ -1,15 +1,15 @@
 # Miyeon authentication backend
 
-This Express API connects to the existing MySQL database named `miyeon`. On startup it creates a `users` table if one does not already exist. You do not need to create a separate database or table in phpMyAdmin.
+This Express API connects to a MySQL-compatible database. On startup it creates a `users` table if one does not already exist. Remote database connections automatically use verified TLS (TLS 1.2 or newer); local `localhost` connections do not require TLS.
 
 ## Setup
 
-1. Make sure MySQL is running and the `miyeon` database exists.
-2. In this folder, copy the database and secret settings from `.env.example` into `.env` (keep the existing `PORT` and `FRONTEND_URL` entries).
-3. Set `DB_USER` and `DB_PASSWORD` to your MySQL account details. Set `JWT_SECRET` to a random secret at least 32 characters long.
+1. Make sure your database is available and its database/schema exists.
+2. Set `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, and `DB_PASSWORD` in `.env` or in your hosting provider's environment settings. The API also accepts `DB_DATABASE` and `DB_USERNAME` as aliases for the name and user.
+3. Set `JWT_SECRET` to a random secret at least 32 characters long.
 4. Run `npm install`, then `npm run dev`.
 
-The API starts at `http://localhost:5000`. The frontend runs at `http://localhost:5173`.
+The API starts at `http://localhost:5000` locally. On Render, leave `PORT` to Render's automatic setting and set `FRONTEND_URL` to the deployed frontend's URL.
 
 ## Endpoints
 

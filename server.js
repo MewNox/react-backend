@@ -17,9 +17,12 @@ if (!jwtSecret || jwtSecret.length < 32) {
 const pool = mysql.createPool({
   host: process.env.DB_HOST || "localhost",
   port: Number(process.env.DB_PORT || 3306),
-  user: process.env.DB_USER || "root",
+  user: process.env.DB_USER || process.env.DB_USERNAME || "root",
   password: process.env.DB_PASSWORD || "",
-  database: process.env.DB_NAME || "miyeon",
+  database: process.env.DB_NAME || process.env.DB_DATABASE || "miyeon",
+  ssl: ["localhost", "127.0.0.1"].includes(process.env.DB_HOST || "localhost")
+    ? undefined
+    : { minVersion: "TLSv1.2", rejectUnauthorized: true },
   waitForConnections: true,
   connectionLimit: 10,
 });
